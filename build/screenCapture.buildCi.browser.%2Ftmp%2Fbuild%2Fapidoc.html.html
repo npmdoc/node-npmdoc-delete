@@ -1,0 +1,786 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/jonschlinkert/delete">delete (v0.3.2)</a>
+</h1>
+<h4>Delete files and folders and any intermediate directories if they exist (sync and async).</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.delete">module delete</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.delete">
+            function <span class="apidocSignatureSpan"></span>delete
+            <span class="apidocSignatureSpan">(patterns, options, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.promise">
+            function <span class="apidocSignatureSpan">delete.</span>promise
+            <span class="apidocSignatureSpan">(patterns, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.sync">
+            function <span class="apidocSignatureSpan">delete.</span>sync
+            <span class="apidocSignatureSpan">(patterns, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils">
+            function <span class="apidocSignatureSpan">delete.</span>utils
+            <span class="apidocSignatureSpan">(mod, name)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.delete.utils">module delete.utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.utils">
+            function <span class="apidocSignatureSpan">delete.</span>utils
+            <span class="apidocSignatureSpan">(mod, name)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.extend">
+            function <span class="apidocSignatureSpan">delete.utils.</span>extend
+            <span class="apidocSignatureSpan">(o)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.glob">
+            function <span class="apidocSignatureSpan">delete.utils.</span>glob
+            <span class="apidocSignatureSpan">(patterns, config, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.insideCurrentDir">
+            function <span class="apidocSignatureSpan">delete.utils.</span>insideCurrentDir
+            <span class="apidocSignatureSpan">(fp)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.isCurrentDir">
+            function <span class="apidocSignatureSpan">delete.utils.</span>isCurrentDir
+            <span class="apidocSignatureSpan">(fp)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.promise">
+            function <span class="apidocSignatureSpan">delete.utils.</span>promise
+            <span class="apidocSignatureSpan">(executor)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.rimraf">
+            function <span class="apidocSignatureSpan">delete.utils.</span>rimraf
+            <span class="apidocSignatureSpan">(p, options, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.delete.utils.stripSlash">
+            function <span class="apidocSignatureSpan">delete.utils.</span>stripSlash
+            <span class="apidocSignatureSpan">(fp)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">delete.utils.</span>async</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.delete" id="apidoc.module.delete">module delete</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.delete.delete" id="apidoc.element.delete.delete">
+        function <span class="apidocSignatureSpan"></span>delete
+        <span class="apidocSignatureSpan">(patterns, options, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function del(patterns, options, cb) {
+  if (typeof options === 'function') {
+    cb = options;
+    options = {};
+  }
+
+  if (typeof cb !== 'function') {
+    return del.sync.apply(del, arguments);
+  }
+
+  var opts = utils.extend({cwd: process.cwd()}, options);
+  var deleted = [];
+
+  utils.glob(patterns, opts, function(err, files) {
+    utils.async.each(files, function(file, next) {
+      var fp = path.resolve(opts.cwd, file);
+
+      fs.stat(fp, function(err, stat) {
+        if (err) {
+          next();
+          return;
+        }
+
+        try {
+          assertDirectory(fp, opts);
+        } catch (err) {
+          next(err);
+          return;
+        }
+
+        utils.rimraf(fp, function(err) {
+          if (err) return next(err);
+          deleted.push(fp);
+          next();
+        });
+      });
+    }, function(err) {
+      cb(err, deleted);
+    });
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.promise" id="apidoc.element.delete.promise">
+        function <span class="apidocSignatureSpan">delete.</span>promise
+        <span class="apidocSignatureSpan">(patterns, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function delPromise(patterns, options) {
+  var Promise = utils.promise;
+  var opts = utils.extend({cwd: process.cwd()}, options);
+
+  return utils.glob.promise(patterns, opts)
+    .then(function(files) {
+      files.forEach(function(fp) {
+        del.sync(fp, opts);
+      });
+    })
+    .catch(function(err) {
+      throw err;
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  console.log('done!');
+});
+
+// sync
+del.sync(['foo/*.js']);
+
+// promise
+del.<span class="apidocCodeKeywordSpan">promise</span>(['foo/*.js'])
+  .then(function() {
+    //=&gt; do stuff
+  });
+```
+
+## Options
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.sync" id="apidoc.element.delete.sync">
+        function <span class="apidocSignatureSpan">delete.</span>sync
+        <span class="apidocSignatureSpan">(patterns, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function delSync(patterns, options) {
+  var opts = utils.extend({cwd: process.cwd()}, options);
+  try {
+    utils.glob.sync(patterns, opts).forEach(function(file) {
+      var fp = path.resolve(opts.cwd, file);
+      assertDirectory(fp, opts);
+      utils.rimraf.sync(fp);
+    });
+  } catch (err) {
+    throw err;
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// async
+del(['foo/*.js'], function(err) {
+  if (err) throw err;
+  console.log('done!');
+});
+
+// sync
+del.<span class="apidocCodeKeywordSpan">sync</span>(['foo/*.js']);
+
+// promise
+del.promise(['foo/*.js'])
+  .then(function() {
+    //=&gt; do stuff
+  });
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils" id="apidoc.element.delete.utils">
+        function <span class="apidocSignatureSpan">delete.</span>utils
+        <span class="apidocSignatureSpan">(mod, name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">utils = function (mod, name) {
+  name = name || camelcase(mod);
+
+  // check both boolean and string in case `process.env` cases to string
+  if (process.env.UNLAZY === 'true' || process.env.UNLAZY === true || process.env.TRAVIS) {
+    cache[name] = fn(mod);
+  }
+
+  Object.defineProperty(proxy, name, {
+    enumerable: true,
+    configurable: true,
+    get: getter
+  });
+
+  function getter() {
+    if (cache.hasOwnProperty(name)) {
+      return cache[name];
+    }
+    return (cache[name] = fn(mod));
+  }
+  return getter;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.delete.utils" id="apidoc.module.delete.utils">module delete.utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.utils" id="apidoc.element.delete.utils.utils">
+        function <span class="apidocSignatureSpan">delete.</span>utils
+        <span class="apidocSignatureSpan">(mod, name)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">utils = function (mod, name) {
+  name = name || camelcase(mod);
+
+  // check both boolean and string in case `process.env` cases to string
+  if (process.env.UNLAZY === 'true' || process.env.UNLAZY === true || process.env.TRAVIS) {
+    cache[name] = fn(mod);
+  }
+
+  Object.defineProperty(proxy, name, {
+    enumerable: true,
+    configurable: true,
+    get: getter
+  });
+
+  function getter() {
+    if (cache.hasOwnProperty(name)) {
+      return cache[name];
+    }
+    return (cache[name] = fn(mod));
+  }
+  return getter;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.extend" id="apidoc.element.delete.utils.extend">
+        function <span class="apidocSignatureSpan">delete.utils.</span>extend
+        <span class="apidocSignatureSpan">(o)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function extend(o) {
+  if (!isObject(o)) { o = {}; }
+
+  var len = arguments.length;
+  for (var i = 1; i &lt; len; i++) {
+    var obj = arguments[i];
+
+    if (isObject(obj)) {
+      assign(o, obj);
+    }
+  }
+  return o;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    options = {};
+  }
+
+  if (typeof cb !== 'function') {
+    return del.sync.apply(del, arguments);
+  }
+
+  var opts = utils.<span class="apidocCodeKeywordSpan">extend</span>({cwd: process.cwd()}, options);
+  var deleted = [];
+
+  utils.glob(patterns, opts, function(err, files) {
+    utils.async.each(files, function(file, next) {
+var fp = path.resolve(opts.cwd, file);
+
+fs.stat(fp, function(err, stat) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.glob" id="apidoc.element.delete.utils.glob">
+        function <span class="apidocSignatureSpan">delete.utils.</span>glob
+        <span class="apidocSignatureSpan">(patterns, config, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">glob = function (patterns, config, cb) {
+  if (typeof config === 'function') {
+    cb = config;
+    config = {};
+  }
+
+  if (typeof cb !== 'function') {
+    throw new Error('expected a callback function.');
+  }
+
+  if (!utils.isValidGlob(patterns)) {
+    cb(new Error('invalid glob pattern: ' + patterns));
+    return;
+  }
+
+  // shallow clone options
+  var options = utils.extend({cwd: ''}, config);
+  options.cwd = utils.cwd(options);
+
+  patterns = utils.arrayify(patterns);
+  if (!utils.hasGlob(patterns)) {
+    patterns = utils.getPaths(patterns, options);
+    cb(null, patterns);
+    return;
+  }
+
+  var sifted = utils.sift(patterns, options);
+  var Glob = utils.glob.Glob;
+  var cache = [];
+  var glob;
+
+  function updateOptions(inclusive) {
+    return utils.setIgnores(options, sifted.excludes, inclusive.index);
+  }
+
+  utils.reduce(sifted.includes, [], function(acc, include, next) {
+    var opts = updateOptions(include);
+    if (acc.glob) {
+      opts.cache = acc.glob.cache;
+    }
+
+    glob = new Glob(include.pattern, opts, function(err, files) {
+      if (err) {
+        next(err);
+        return;
+      }
+
+      cache.push(glob.cache);
+      acc = acc.concat(files);
+      acc.glob = glob;
+      next(null, acc);
+    });
+  }, function(err, files) {
+    if (err) {
+      cb(err);
+      return;
+    }
+
+    Object.defineProperty(files, 'cache', {
+      configurable: true,
+      get: function() {
+        return utils.createCache(cache);
+      }
+    });
+
+    delete files.glob;
+    cb(null, files);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (typeof cb !== 'function') {
+    return del.sync.apply(del, arguments);
+  }
+
+  var opts = utils.extend({cwd: process.cwd()}, options);
+  var deleted = [];
+
+  utils.<span class="apidocCodeKeywordSpan">glob</span>(patterns, opts, function(err, files) {
+    utils.async.each(files, function(file, next) {
+var fp = path.resolve(opts.cwd, file);
+
+fs.stat(fp, function(err, stat) {
+  if (err) {
+    next();
+    return;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.insideCurrentDir" id="apidoc.element.delete.utils.insideCurrentDir">
+        function <span class="apidocSignatureSpan">delete.utils.</span>insideCurrentDir
+        <span class="apidocSignatureSpan">(fp)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function insideCurrentDir(fp) {
+  var cwd = utils.stripSlash(process.cwd());
+  fp = utils.stripSlash(path.resolve(fp));
+  if (path.sep === '\\') {
+    cwd = cwd.toLowerCase();
+    fp = fp.toLowerCase();
+  }
+  return fp.substr(0, cwd.length) === cwd;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+   return;
+ }
+
+ if (utils.isCurrentDir(fp) === true) {
+   throw new Error('Whoooaaa there! If you\'re sure you want to do this, define `options.force` to delete the current
+working directory.');
+ }
+
+ if (utils.<span class="apidocCodeKeywordSpan">insideCurrentDir</span>(fp) === false) {
+   throw new Error('Yikes!! Take care! `options.force` must be defined to delete files or folders outside the current working
+ directory.');
+ }
+}
+
+/**
+* Expose `del`
+*/
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.isCurrentDir" id="apidoc.element.delete.utils.isCurrentDir">
+        function <span class="apidocSignatureSpan">delete.utils.</span>isCurrentDir
+        <span class="apidocSignatureSpan">(fp)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function isCurrentDir(fp) {
+  if (process.cwd() === path.resolve(fp)) {
+    return true;
+  }
+  return fp === './' || fp === '.';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+function assertDirectory(fp, options) {
+  options = options || {};
+
+  if (options &amp;&amp; options.force) {
+    return;
+  }
+
+  if (utils.<span class="apidocCodeKeywordSpan">isCurrentDir</span>(fp) === true) {
+    throw new Error('Whoooaaa there! If you\'re sure you want to do this, define `options.force` to delete the current
+ working directory.');
+  }
+
+  if (utils.insideCurrentDir(fp) === false) {
+    throw new Error('Yikes!! Take care! `options.force` must be defined to delete files or folders outside the current working
+ directory.');
+  }
+}
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.promise" id="apidoc.element.delete.utils.promise">
+        function <span class="apidocSignatureSpan">delete.utils.</span>promise
+        <span class="apidocSignatureSpan">(executor)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Promise(executor) {
+    if (executor !== INTERNAL) {
+        check(this, executor);
+    }
+    this._bitField = 0;
+    this._fulfillmentHandler0 = undefined;
+    this._rejectionHandler0 = undefined;
+    this._promise0 = undefined;
+    this._receiver0 = undefined;
+    this._resolveFromExecutor(executor);
+    this._promiseCreated();
+    this._fireEvent("promiseCreated", this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  console.log('done!');
+});
+
+// sync
+del.sync(['foo/*.js']);
+
+// promise
+del.<span class="apidocCodeKeywordSpan">promise</span>(['foo/*.js'])
+  .then(function() {
+    //=&gt; do stuff
+  });
+```
+
+## Options
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.rimraf" id="apidoc.element.delete.utils.rimraf">
+        function <span class="apidocSignatureSpan">delete.utils.</span>rimraf
+        <span class="apidocSignatureSpan">(p, options, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function rimraf(p, options, cb) {
+  if (typeof options === 'function') {
+    cb = options
+    options = {}
+  }
+
+  assert(p, 'rimraf: missing path')
+  assert.equal(typeof p, 'string', 'rimraf: path should be a string')
+  assert.equal(typeof cb, 'function', 'rimraf: callback function required')
+  assert(options, 'rimraf: invalid options argument provided')
+  assert.equal(typeof options, 'object', 'rimraf: options should be object')
+
+  defaults(options)
+
+  var busyTries = 0
+  var errState = null
+  var n = 0
+
+  if (options.disableGlob || !glob.hasMagic(p))
+    return afterGlob(null, [p])
+
+  options.lstat(p, function (er, stat) {
+    if (!er)
+      return afterGlob(null, [p])
+
+    glob(p, options.glob, afterGlob)
+  })
+
+  function next (er) {
+    errState = errState || er
+    if (--n === 0)
+      cb(errState)
+  }
+
+  function afterGlob (er, results) {
+    if (er)
+      return cb(er)
+
+    n = results.length
+    if (n === 0)
+      return cb()
+
+    results.forEach(function (p) {
+      rimraf_(p, options, function CB (er) {
+        if (er) {
+          if ((er.code === "EBUSY" || er.code === "ENOTEMPTY" || er.code === "EPERM") &amp;&amp;
+              busyTries &lt; options.maxBusyTries) {
+            busyTries ++
+            var time = busyTries * 100
+            // try again, with the same exact callback as this one.
+            return setTimeout(function () {
+              rimraf_(p, options, CB)
+            }, time)
+          }
+
+          // this one won't happen if graceful-fs is used.
+          if (er.code === "EMFILE" &amp;&amp; timeout &lt; options.emfileWait) {
+            return setTimeout(function () {
+              rimraf_(p, options, CB)
+            }, timeout ++)
+          }
+
+          // already gone
+          if (er.code === "ENOENT") er = null
+        }
+
+        timeout = 0
+        next(er)
+      })
+    })
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    try {
+      assertDirectory(fp, opts);
+    } catch (err) {
+      next(err);
+      return;
+    }
+
+    utils.<span class="apidocCodeKeywordSpan">rimraf</span>(fp, function(err) {
+      if (err) return next(err);
+      deleted.push(fp);
+      next();
+    });
+  });
+}, function(err) {
+  cb(err, deleted);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.delete.utils.stripSlash" id="apidoc.element.delete.utils.stripSlash">
+        function <span class="apidocSignatureSpan">delete.utils.</span>stripSlash
+        <span class="apidocSignatureSpan">(fp)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function stripSlash(fp) {
+  if (fp.substr(-1) === '/') {
+    return fp.slice(0, -1);
+  }
+  return fp
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+require = fn;
+
+/**
+ * Utils
+ */
+
+utils.insideCurrentDir = function insideCurrentDir(fp) {
+  var cwd = utils.<span class="apidocCodeKeywordSpan">stripSlash</span>(process.cwd());
+  fp = utils.stripSlash(path.resolve(fp));
+  if (path.sep === '\\') {
+    cwd = cwd.toLowerCase();
+    fp = fp.toLowerCase();
+  }
+  return fp.substr(0, cwd.length) === cwd;
+};
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
